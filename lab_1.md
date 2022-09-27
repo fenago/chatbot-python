@@ -1,6 +1,6 @@
 
-A 5-Minute Text & Image Chatbot with Zero Data Using Humingbird 
-===============================================================
+Text & Image Chatbot with Zero Data Using Humingbird 
+====================================================
 
 
 
@@ -61,7 +61,7 @@ together visual and conversational abilities into a single platform
 could help automate a number of different tasks, like automated customer
 service.
 
-To continue with the rest of this tutorial, let\'s install the
+To continue with the rest of this lab, let\'s install the
 Humingbird package with the command:
 
 ```
@@ -322,7 +322,7 @@ Great choice! Here is the checkout link: https://www.fakeicecream.com/checkout/s
 Conclusion 
 ==========
 
-In this tutorial, we build a very basic text + image-based chatbot using
+In this lab, we build a very basic text + image-based chatbot using
 Humingbird. We saved tons of time not collecting data, abstracted away
 lots of complicated code and we needed zero training to build this
 multimodal model. While this chatbot could be improved and the concept

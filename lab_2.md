@@ -6,20 +6,20 @@ Create a Deep Learning Chatbot with Python and Flask
 
 
 
-In this article we are going to be creating our own intelligent deep
+In this lab we are going to be creating our own intelligent deep
 learning chatbot with Python and Flask. Deep learning is a field of
 machine learning that uses algorithms that mimic the human brain,
 working like the neural networks and connections. 
 
 Don't worry, we are not going to go in to deep learning mathematics or
-algorithms in this article. I am just going to show you the libraries
+algorithms in this lab. I am just going to show you the libraries
 and concepts from deep learning that you need to build a chatbot using
 Python.
 
 ![](./images/1_ve_A-B4dJFJ2ESRNuT8aSA.png)
 
 
-We are going to cover the following in this deep learning chatbot with Python and Flask article 
+We are going to cover the following in this deep learning chatbot with Python and Flask lab 
 -----------------------------------------------------------------------------------------------
 
 - Creating the intents file for your chatbot
