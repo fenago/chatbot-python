@@ -399,14 +399,14 @@ def chatbotResponse():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='6066', debug=True)
+    app.run(host='0.0.0.0', port='5000', debug=True)
 
 ```
 
 Test our deep-learning chatbot with Python and Flask 
 ====================================================
 
-You can then run the Flask app and test the app on port 6066.
+You can then run the Flask app and test the app on port 5000.
 
 You should see this:
 

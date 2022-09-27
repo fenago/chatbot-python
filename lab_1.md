@@ -126,6 +126,10 @@ This will give us the following output:
 ]
 ```
 
+![](./images/1.png)
+
+
+
 Awesome! Our intent recognition system correctly predicted that the
 output was the user wanting to see the menu. There's one issue: we don't
 have any responses! Let's build that.
@@ -248,6 +252,8 @@ And our code snippet will return:
      "score": 0.02
   }]
 ```
+
+![](./images/2.png)
 
 Awesome! We've done the toughest part with only a few lines of code.
 Now, let\'s put it all together by adding some "visual intents" with a
