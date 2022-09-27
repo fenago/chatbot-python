@@ -86,10 +86,18 @@ For our ice cream chatbot, we're going to use the following
 All of these are fairly self-explanatory on what their "roles" will be.
 
 To build our intent recognizer, let\'s use the following snippet using
-Humingbird:
+Humingbird (filename: `intent_recognition.py`):
 
+```
+import humingbird
 
+intent_recognition = humingbird.Text.predict(
+  text="I was wondering what you have on your menu? I love ice cream!",
+  labels=["greeting", "goodbye", "menu", "prices", "start_order"]
+)
 
+print(intent_recognition)
+```
 
 
 
@@ -126,17 +134,57 @@ Step 2: Build a response system
 -------------------------------
 
 Don't sweat, we can use the following Python dictionary for our response
-library:
+library  (filename: `responses.json`):
 
-
-
+```
+{
+  "greetings": ["Hi! Welcome to the ice cream shop.", "Welcome! What can i help you with?"],
+  "goodbyes": ["Goodbye!", "Nice chatting! Have a great day."],
+  "menu": ["Here is our menu: https://www.randomicecream.co"],
+  "prices": ["Our prices our affordable for all!", "We have super low prices! Pracitcally free!"],
+  "start_order": ["Lets start the order here: https://www.fakepaymentlink.com"]
+}
+```
 
 
 
 Now we can build a simple function to recognize intents and respond
-accordingly:
+accordingly (filename: `response_function.py`):
+
+```
+import humingbird
+import random
+
+intents = {
+  "greeting": ["Hi! Welcome to the ice cream shop.", "Welcome! What can i help you with?"],
+  "goodbye": ["Goodbye!", "Nice chatting! Have a great day."],
+  "menu": ["Here is our menu: https://www.randomicecream.co"],
+  "prices": ["Our prices our affordable for all!", "We have super low prices! Pracitcally free!"],
+  "start_order": ["Lets start the order here: https://www.fakepaymentlink.com"]
+}
 
 
+def detect_and_respond(query):
+  """Detects an intent from the users query and returns a response from the most likely intent"""
+  
+  prediction = humingbird.Text.predict(
+    text=query,
+    labels=["greeting", "goodbye", "menu", "prices", "start_order"]
+  )
+  
+  highest_score = 0
+  highest_score_class = ""
+  
+  for i in prediction:
+      if i["score"] > highest_score:
+          highest_score = i["score"]
+          highest_score_class = i["className"]
+  
+  return random.choice(intents[highest_score_class])
+
+
+detect_and_respond("Hi there! How are you today?")
+```
 
 
 
@@ -165,10 +213,20 @@ understanding component to our chatbot. In our simple example of an ice
 cream store chatbot, we're going to recognize different flavors of ice
 cream and respond with a fictional checkout link.
 
-To do this with Humingbird, we can use the following code snippet:
+To do this with Humingbird, we can use the following code snippet
+(filename: `ice_cream.py`):
 
 
+```
+import humingbird
 
+prediction = humingbird.Image.predict(
+    image_path='ice-cream.jpg',
+    labels=["strawberry ice cream", "vanilla ice cream", "chocolate ice cream"]  # add more if you'd like :)
+)
+
+print(prediction)
+```
 
 
 
@@ -193,19 +251,71 @@ And our code snippet will return:
 
 Awesome! We've done the toughest part with only a few lines of code.
 Now, let\'s put it all together by adding some "visual intents" with a
-`visual_intent_detection` function:
+`visual_intent_detection` function (filename: `updated_responses.py`):
+
+```
+import humingbird
+import random
+
+intents = {
+  "greeting": ["Hi! Welcome to the ice cream shop.", "Welcome! What can i help you with?"],
+  "goodbye": ["Goodbye!", "Nice chatting! Have a great day."],
+  "menu": ["Here is our menu: https://www.randomicecream.co"],
+  "prices": ["Our prices our affordable for all!", "We have super low prices! Pracitcally free!"],
+  "start_order": ["Lets start the order here: https://www.fakepaymentlink.com"]
+}
+
+visual_intents = {
+  "strawberry ice cream": ["Great choice! Here is the checkout link: https://www.fakeicecream.com/checkout/strawberry"],
+  "vanilla ice cream": ["Great choice! Here is the checkout link: https://www.fakeicecream.com/checkout/vanilla"],
+  "chocolate ice cream": ["Great choice! Here is the checkout link: https://www.fakeicecream.com/checkout/chocolate"],
+}
 
 
+def detect_and_respond(query):
+  """Detects an intent from the users query and returns a response from the most likely intent"""
+  
+  prediction = humingbird.Text.predict(
+    text=query,
+    labels=["greeting", "goodbye", "menu", "prices", "start_order"]
+  )
+  
+  highest_score = 0
+  highest_score_class = ""
+  
+  for i in prediction:
+      if i["score"] > highest_score:
+          highest_score = i["score"]
+          highest_score_class = i["className"]
+  
+  return random.choice(intents[highest_score_class])
 
 
-Which will return (with the example image above:
+def visual_intent_detection(image):
+  """Detects an intent from the users image and returns a checkout response"""
+  
+  prediction = humingbird.Image.predict(
+    image_path=image,
+    labels=["strawberry ice cream", "vanilla ice cream", "chocolate ice cream"]
+  )
+  
+  highest_score = 0
+  highest_score_class = ""
+  
+  for i in prediction:
+      if i["score"] > highest_score:
+          highest_score = i["score"]
+          highest_score_class = i["className"]
+  
+  return random.choice(visual_intents[highest_score_class])
+```
+
+
+Which will return (with the example image above):
 
 ```
 Great choice! Here is the checkout link: https://www.fakeicecream.com/checkout/strawberry
 ```
-
-**We did it!**
-
 
 
 
